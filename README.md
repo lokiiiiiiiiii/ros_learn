@@ -26,3 +26,5 @@ Record of learning ros
 > rosrun turtlesim turtle_teleop_key（在此终端使用键盘控制乌龟）
 > 结果如图
 ![text](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/%E6%B5%8B%E8%AF%95ros.png)
+
+*目前视频看到p40 前面的记录 img里有运行结果图 readme后续会补上*
