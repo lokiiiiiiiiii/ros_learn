@@ -19,6 +19,7 @@ Record of learning ros
 > 设置环境变量
 > echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 > source ~/.bashrc
+> 
 > **测试ROS是否安装成功**
 > 打开三个终端 依次输入
 > roscore
@@ -27,4 +28,71 @@ Record of learning ros
 > 结果如图
 ![text](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/%E6%B5%8B%E8%AF%95ros.png)
 
-*目前视频看到p40 前面的记录 img里有运行结果图 readme后续会补上*
+###HelloWorld实现
+
+*先创建一个工作空间；*
+> mkdir -p demo_ws/src
+> cd demo_ws
+> catkin_make
+
+*再创建一个功能包添加依赖；*
+> cd src
+> catkin_create_pkg helloworld roscpp rospy std_msgs
+
+*编辑源文件；*                                     >为py文件添加权限
+                                                 >chmod +x helloworld.py          
+*编辑配置文件；*
+> 编辑 ros 包下的 Cmakelist.txt文件                 
+> 
+> add_executable(hello src/helloworld.cpp        >catkin_install_python(PROGRAMS
+> )                                              >   scripts/helloworld.py
+> target_link_libraries(hello                    >   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+>   ${catkin_LIBRARIES}                          >)
+> )
+
+*编译并执行。*
+> cd demo_ws
+> catkin_make
+![make](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/helloworld.png)
+> 另开终端启动核心
+> roscore
+> cd demo_ws
+> source ./devel/setup.bash
+> rosrun  helloworld hello  >rosrun hellowolrd helloworld.py
+![helloworld_c](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/helloworld2.png)
+![helloworld_py](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/helloworld_py.png)
+
+###vscode配置
+![code_cmake](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/vscode%20%E9%85%8D%E7%BD%AE.png)
+> *配置中出现的问题*
+> c++实现
+> 修改 .vscode/c_cpp_properties.json
+> 设置 "cppStandard": "c++17"
+![code_C](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/vscode_c%2B%2B.png)
+> python实现
+> 终端中输入 sudo ln -s usr/bin/python3 /usr/bin/python
+> *无需编译 软链接*
+![code_py](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/vscode_py.png)
+> launch文件
+> <launch>
+    <node pkg="helloworld" type="demo_hello" name="hello" output="screen" />
+    <node pkg="turtlesim" type="turtlesim_node" name="turtle_GUI"/>
+    <node pkg="turtlesim" type="turtle_teleop_key" name="turtle_key" />
+> </launch>
+> 
+>  node ---> 包含的某个节点
+>  pkg -----> 功能包
+>  type ----> 被运行的节点文件
+>  name --> 为节点命名
+>  output-> 设置日志的输出目标
+>  运行>> roslaunch helloworld start_turtle.launch
+
+#ROS文件系统及命令
+> 还需要多看多熟练
+![ros!](http://www.autolabor.com.cn/book/ROSTutorials/chapter1/15-ben-zhang-xiao-jie/151-roswen-jian-xi-tong.html)
+
+
+*计算图*
+> 运行launch文件实现小乌龟案例演示计算图
+> 终端输入 rosrun rqt_graph rqt_graph
+![rqt_graph](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/%E8%AE%A1%E7%AE%97%E5%9B%BE.png)
