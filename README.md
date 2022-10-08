@@ -79,6 +79,7 @@ DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 > 终端中输入 sudo ln -s usr/bin/python3 /usr/bin/python
 > *无需编译 软链接*
 ![code_py](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/vscode_py.png)
+
 launch文件
 <launch>
     <node pkg="helloworld" type="demo_hello" name="hello" output="screen" />
