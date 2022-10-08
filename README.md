@@ -39,16 +39,21 @@ Record of learning ros
 > cd src
 > catkin_create_pkg helloworld roscpp rospy std_msgs
 
-*编辑源文件；*                                     >为py文件添加权限
-                                                 >chmod +x helloworld.py          
+*编辑源文件；*                                     
+>p.s. python->为py文件添加权限
+>             chmod +x helloworld.py          
 *编辑配置文件；*
 > 编辑 ros 包下的 Cmakelist.txt文件                 
-> 
-> add_executable(hello src/helloworld.cpp        >catkin_install_python(PROGRAMS
-> )                                              >   scripts/helloworld.py
-> target_link_libraries(hello                    >   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
->   ${catkin_LIBRARIES}                          >)
-> )
+>
+add_executable(hello src/helloworld.cpp 
+)                                          
+target_link_libraries(hello               
+  ${catkin_LIBRARIES}                   
+)
+catkin_install_python(PROGRAMS
+scripts/helloworld.py
+DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 *编译并执行。*
 > cd demo_ws
@@ -58,7 +63,8 @@ Record of learning ros
 > roscore
 > cd demo_ws
 > source ./devel/setup.bash
-> rosrun  helloworld hello  >rosrun hellowolrd helloworld.py
+> rosrun  helloworld hello  
+> rosrun hellowolrd helloworld.py
 ![helloworld_c](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/helloworld2.png)
 ![helloworld_py](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/helloworld_py.png)
 
@@ -73,19 +79,18 @@ Record of learning ros
 > 终端中输入 sudo ln -s usr/bin/python3 /usr/bin/python
 > *无需编译 软链接*
 ![code_py](https://github.com/lokiiiiiiiiii/ros_learn/blob/main/img/vscode_py.png)
-> launch文件
-> <launch>
+launch文件
+<launch>
     <node pkg="helloworld" type="demo_hello" name="hello" output="screen" />
     <node pkg="turtlesim" type="turtlesim_node" name="turtle_GUI"/>
     <node pkg="turtlesim" type="turtle_teleop_key" name="turtle_key" />
-> </launch>
-> 
->  node ---> 包含的某个节点
->  pkg -----> 功能包
->  type ----> 被运行的节点文件
->  name --> 为节点命名
->  output-> 设置日志的输出目标
->  运行>> roslaunch helloworld start_turtle.launch
+</launch>
+node ---> 包含的某个节点
+pkg -----> 功能包
+type ----> 被运行的节点文件
+name --> 为节点命名
+output-> 设置日志的输出目标
+运行>> roslaunch helloworld start_turtle.launch
 
 #ROS文件系统及命令
 > 还需要多看多熟练
